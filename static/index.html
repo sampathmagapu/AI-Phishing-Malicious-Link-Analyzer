@@ -12,28 +12,26 @@
 
     <style>
         body {
-            position: relative; /* Needed for z-index context */
-            overflow-x: hidden; /* Prevent horizontal scroll from particles */
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* NEW: Inset/Neumorphic Textarea */
         .inset-textarea {
-            background-color: #e0e7fa; /* A light, matching blue/gray from the background */
+            background-color: #e0e7fa;
             border: none;
-            box-shadow: inset 4px 4px 8px #bec6d4, /* Darker inner shadow */
-                        inset -4px -4px 8px #ffffff; /* Lighter inner shadow */
-            color: #111827; /* Dark text */
+            box-shadow: inset 4px 4px 8px #bec6d4,
+                       inset -4px -4px 8px #ffffff;
+            color: #111827;
         }
         .inset-textarea::placeholder {
-            color: #4b5563; /* Dark placeholder */
+            color: #4b5563;
         }
         .inset-textarea:focus {
             box-shadow: inset 2px 2px 4px #bec6d4,
-                        inset -2px -2px 4px #ffffff,
-                        0 0 0 2px #3b82f6; /* Blue ring on focus */
+                       inset -2px -2px 4px #ffffff,
+                       0 0 0 2px #3b82f6;
         }
 
-        /* NEW: Animated Gradient Button (Primary) */
         .animated-gradient-button {
             position: relative;
             background-image: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
@@ -48,23 +46,20 @@
             100% { background-position: 200% 50%; }
         }
 
-        /* NEW: Inset/Neumorphic Button (Secondary) */
         .inset-button {
-            background-color: #e5e7eb; /* Light gray */
-            color: #374151; /* Dark gray text */
+            background-color: #e5e7eb;
+            color: #374151;
             font-weight: 600;
-            box-shadow:  4px 4px 8px #c8cdd3, /* Normal outer shadow */
-                         -4px -4px 8px #ffffff; /* Normal outer shadow */
+            box-shadow:  4px 4px 8px #c8cdd3,
+                        -4px -4px 8px #ffffff;
             transition: all 0.1s ease-in-out;
         }
         .inset-button:hover {
-            box-shadow: inset 4px 4px 8px #c8cdd3, /* Inset shadow on press */
-                        inset -4px -4px 8px #ffffff;
+            box-shadow: inset 4px 4px 8px #c8cdd3,
+                       inset -4px -4px 8px #ffffff;
             font-weight: 700;
         }
 
-        /* QR Reader Button Styling */
-        /* NOTE: These styles are complex to inject but included for completeness */
         #qr-reader__dashboard_section_csr>div>button {
             background-color: #4B5563 !important;
             color: white !important;
@@ -74,9 +69,8 @@
             border: none !important;
         }
         
-        /* QR Reader Stop Button */
         #qr-reader__dashboard_section_footer>button {
-            background-color: #EF4444 !important; /* Red */
+            background-color: #EF4444 !important;
             color: white !important;
             padding: 8px 12px !important;
             border-radius: 6px !important;
@@ -84,46 +78,44 @@
             border: none !important;
         }
 
-        /* Particles.js Container */
         #particles-js {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0; /* Ensures particles are in the background */
-            background-color: #e0f2fe; /* Light blue, similar to your gradient start */
-            background-image: linear-gradient(to br, #e0f2fe, #f0f4f8, #e0e7fa); /* Recreate gradient for particles */
+            z-index: 0;
+            background-color: #e0f2fe;
+            background-image: linear-gradient(to bottom right, #e0f2fe, #f0f4f8, #e0e7fa);
         }
 
-        /* Ensure content is above particles */
         header, main, section, footer {
             position: relative;
-            z-index: 5; 
+            z-index: 5;
         }
-        
-        /* Glassmorphism Card Style */
+
         .glass-card {
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(10px) saturate(180%);
-            -webkit-backdrop-filter: blur(10px) saturate(180%);
-            border: 1px solid rgba(209, 213, 219, 0.3);
-            z-index: 10; /* Make cards pop above content */
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1.5rem;
         }
     </style>
 </head>
 
 <body class="font-sans flex flex-col items-center min-h-screen p-4 md:p-8">
-
+    <!-- Particles.js container -->
     <div id="particles-js"></div>
 
+    <!-- Header -->
     <header class="text-center mb-10">
         <h1 class="text-5xl font-extrabold text-gray-800 mb-2">
-            <span class="text-blue-500">🛡️ PhishGuard</span> Pro
+            <span class="text-blue-500">🛡 PhishGuard</span> Pro
         </h1>
         <p class="text-gray-600 text-lg">AI-Powered Phishing & Malicious Link Analyzer</p>
     </header>
 
+    <!-- Main Input Section -->
     <main class="w-full max-w-3xl p-6 md:p-10 rounded-3xl glass-card shadow-2xl transition-all duration-500">
         <label for="urlInput" class="block text-gray-800 text-sm font-semibold mb-2">
             Paste URL or Text Message:
@@ -143,23 +135,27 @@
             </button>
         </div>
 
+        <!-- QR Scanner Section -->
         <div id="qr-section" class="mt-6 border-t border-gray-300 pt-4 hidden">
             <div id="qr-reader" style="width: 100%; max-width: 400px; margin: auto;"></div>
-            <p id="qr-reader-results" class="text-green-700 text-center font-semibold mt-2"></p>
+            <p id="qr-reader-results" class="text-green-400 text-center font-semibold mt-2"></p>
         </div>
     </main>
 
+    <!-- Results Section -->
     <section id="resultsSection"
         class="w-full max-w-3xl mt-8 p-6 md:p-10 rounded-3xl glass-card shadow-2xl hidden transition-all duration-500">
         <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center border-b border-gray-300 pb-3">Analysis Results</h2>
 
         <div class="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 mb-6">
+            <!-- Risk Gauge -->
             <div class="relative w-48 h-24 md:w-56 md:h-28">
                 <canvas id="riskGauge"></canvas>
                 <div id="gaugeScoreText"
                     class="absolute inset-0 flex items-center justify-center text-3xl font-bold text-gray-900 mt-4">--%</div>
             </div>
 
+            <!-- Verdict & Toggle -->
             <div class="text-center md:text-left flex-grow">
                 <p id="verdictText" class="text-4xl font-bold mb-2 text-gray-900 transition-colors duration-300">Calculating...</p>
                 <div class="mt-3 flex items-center justify-center md:justify-start space-x-4">
@@ -172,11 +168,12 @@
                     </label>
                 </div>
                 <p class="text-xs text-gray-700 mt-2">
-                    Thresholds: Standard (&gt;0.50) | High Recall (&gt;<span id="hrThresholdText">?.??</span>)
+                    Thresholds: Standard (&gt;0.50) | High Recall (&gt;<span id="hrThresholdText">0.25</span>)
                 </p>
             </div>
         </div>
 
+        <!-- Key Risk Factors -->
         <div class="mt-6 border-t border-gray-300 pt-4">
             <h3 class="text-lg font-semibold text-gray-900 mb-3">Key Factors Identified:</h3>
             <div id="riskFactorsList" class="flex flex-wrap gap-2 text-sm">
@@ -189,8 +186,469 @@
         PhishGuard Pro - Hackathon Project
     </footer>
 
-    <script src="/static/script.js"></script>
-    
-</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- Particles.js Initialization ---
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 150,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#3b82f6"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.7,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 4,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 120,
+                        "color": "#60a5fa",
+                        "opacity": 0.6,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 100,
+                            "size": 6,
+                            "duration": 2,
+                            "opacity": 0.8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 150,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 2
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
 
+            // --- 3D Tilt Effect for Cards ---
+            const cards = document.querySelectorAll(".glass-card");
+            const tiltIntensity = 10;
+
+            cards.forEach(card => {
+                card.addEventListener("mousemove", (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const midX = rect.width / 2;
+                    const midY = rect.height / 2;
+
+                    const rotateX = -(y - midY) / midY * tiltIntensity;
+                    const rotateY = (x - midX) / midX * tiltIntensity;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                card.addEventListener("mouseleave", () => {
+                    card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+                });
+            });
+
+            // --- DOM Elements ---
+            const urlInput = document.getElementById("urlInput");
+            const analyzeBtn = document.getElementById("analyzeBtn");
+            const scanQrBtn = document.getElementById("scanQrBtn");
+
+            const qrSection = document.getElementById("qr-section");
+            const qrReader = document.getElementById("qr-reader");
+            const qrReaderResults = document.getElementById("qr-reader-results");
+
+            const resultsSection = document.getElementById("resultsSection");
+            const riskGaugeCtx = document.getElementById("riskGauge").getContext("2d");
+            const gaugeScoreText = document.getElementById("gaugeScoreText");
+            const verdictText = document.getElementById("verdictText");
+            const highRecallToggle = document.getElementById("highRecallToggle");
+            const hrThresholdText = document.getElementById("hrThresholdText");
+            const riskFactorsList = document.getElementById("riskFactorsList");
+
+            // --- State Variables ---
+            let riskGaugeChart = null;
+            let currentAnalysis = null;
+            let html5QrCode = null;
+            const STANDARD_THRESHOLD = 0.50;
+
+            // --- Gemini API Configuration ---
+            const apiKey = ""; // Leave as-is, Canvas will handle it
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            const systemPrompt = `You are a cybersecurity expert specializing in phishing detection.
+Your task is to analyze the provided text, which could be a URL, a text message, or a combination of both.
+Extract any URLs and analyze all content for signs of phishing, scams, or malicious intent.
+You MUST return your analysis in a valid JSON object matching this schema:
+{
+  "type": "OBJECT",
+  "properties": {
+    "riskScore": {
+      "type": "NUMBER",
+      "description": "A risk score from 0.0 (perfectly safe) to 1.0 (highly malicious)."
+    },
+    "verdict": {
+      "type": "STRING",
+      "description": "A one-word verdict based on the risk score: 'Safe', 'Suspicious', or 'Malicious'."
+    },
+    "riskFactors": {
+      "type": "ARRAY",
+      "items": { "type": "STRING" },
+      "description": "A list of 3-5 key factors or red flags that influenced the score (e.g., 'URL Obfuscation', 'Urgent Call-to-Action', 'Suspicious TLD'). If safe, provide positive factors (e.g., 'Known Domain', 'Uses HTTPS')."
+    },
+    "highRecallThreshold": {
+      "type": "NUMBER",
+      "description": "A sensitive threshold (e.g., 0.25) below the standard 0.50, to be used for 'High Recall' mode. This should be a static value, like 0.25."
+    }
+  }
+}`;
+
+            // --- Exponential Backoff Utility ---
+            const exponentialBackoff = async (fn, maxRetries = 5, baseDelay = 1000) => {
+                let retries = 0;
+                while (retries < maxRetries) {
+                    try {
+                        return await fn();
+                    } catch (error) {
+                        retries++;
+                        if (retries === maxRetries) throw error;
+                        const delay = baseDelay * Math.pow(2, retries - 1) + Math.random() * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                }
+            };
+
+            // --- Gemini API Call ---
+            const callGemini = async (text) => {
+                const payload = {
+                    contents: [{
+                        parts: [{ text: text }]
+                    }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                "riskScore": { "type": "NUMBER" },
+                                "verdict": { "type": "STRING" },
+                                "riskFactors": {
+                                    "type": "ARRAY",
+                                    "items": { "type": "STRING" }
+                                },
+                                "highRecallThreshold": { "type": "NUMBER" }
+                            },
+                            required: ["riskScore", "verdict", "riskFactors", "highRecallThreshold"]
+                        }
+                    }
+                };
+
+                const fetchWithBackoff = async () => {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) {
+                        throw new Error(`API Error: ${response.statusText}`);
+                    }
+                    return response.json();
+                };
+
+                try {
+                    const result = await exponentialBackoff(fetchWithBackoff);
+                    const candidate = result.candidates?.[0];
+
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const jsonText = candidate.content.parts[0].text;
+                        return JSON.parse(jsonText);
+                    } else {
+                        throw new Error("Invalid response structure from AI.");
+                    }
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    return {
+                        error: true,
+                        message: "Analysis failed. Please try again."
+                    };
+                }
+            };
+
+            // --- Chart.js Gauge ---
+            const initGauge = () => {
+                if (riskGaugeChart) {
+                    riskGaugeChart.destroy();
+                }
+                riskGaugeChart = new Chart(riskGaugeCtx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: [0, 100],
+                            backgroundColor: ['#E5E7EB', 'rgba(255, 255, 255, 0.2)'],
+                            borderWidth: 0,
+                            circumference: 180,
+                            rotation: 270,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            tooltip: { enabled: false }
+                        },
+                        animation: {
+                            animateRotate: true,
+                            duration: 1000
+                        }
+                    }
+                });
+            };
+
+            const updateGauge = (score) => {
+                if (!riskGaugeChart) {
+                    initGauge();
+                }
+                const scorePercent = Math.max(0, Math.min(100, score * 100));
+                const hue = (1 - score) * 120;
+                const color = `hsl(${hue}, 80%, 50%)`;
+
+                riskGaugeChart.data.datasets[0].data = [scorePercent, 100 - scorePercent];
+                riskGaugeChart.data.datasets[0].backgroundColor[0] = color;
+                riskGaugeChart.update();
+
+                gaugeScoreText.textContent = `${Math.round(scorePercent)}%`;
+            };
+
+            // --- UI Update Functions ---
+            const renderVerdict = () => {
+                if (!currentAnalysis) return;
+
+                const { riskScore, highRecallThreshold, riskFactors } = currentAnalysis;
+
+                const isHighRecall = highRecallToggle.checked;
+                const activeThreshold = isHighRecall ? (highRecallThreshold || 0.25) : STANDARD_THRESHOLD;
+                const safeThreshold = (highRecallThreshold || 0.25);
+
+                let finalVerdict = "Safe";
+                let verdictColor = "text-green-400";
+
+                if (riskScore >= activeThreshold) {
+                    finalVerdict = "Malicious";
+                    verdictColor = "text-red-400";
+                } else if (riskScore >= safeThreshold) {
+                    finalVerdict = "Suspicious";
+                    verdictColor = "text-yellow-400";
+                }
+
+                verdictText.textContent = finalVerdict;
+                verdictText.className = `text-4xl font-bold mb-2 transition-colors duration-300 ${verdictColor}`;
+
+                riskFactorsList.innerHTML = "";
+                if (riskFactors && riskFactors.length > 0) {
+                    riskFactors.forEach(factor => {
+                        const tag = document.createElement("span");
+                        tag.className = "inline-block bg-gray-300 text-gray-800 rounded-full px-3 py-1 font-semibold";
+                        tag.textContent = factor;
+                        riskFactorsList.appendChild(tag);
+                    });
+                } else {
+                    const tag = document.createElement("span");
+                    tag.className = "inline-block bg-gray-300 text-gray-800 rounded-full px-3 py-1 font-semibold";
+                    tag.textContent = "No specific factors identified.";
+                    riskFactorsList.appendChild(tag);
+                }
+            };
+
+            const updateUI = (analysisData) => {
+                if (analysisData.error) {
+                    verdictText.textContent = analysisData.message;
+                    verdictText.className = "text-2xl font-bold mb-2 text-red-400";
+                    gaugeScoreText.textContent = "--%";
+                    riskFactorsList.innerHTML = `<span class="inline-block bg-red-600 text-white rounded-full px-3 py-1 font-semibold">Analysis Error</span>`;
+                    updateGauge(0);
+                    return;
+                }
+
+                currentAnalysis = analysisData;
+                hrThresholdText.textContent = (currentAnalysis.highRecallThreshold || 0.25).toFixed(2);
+                updateGauge(currentAnalysis.riskScore);
+                renderVerdict();
+            };
+
+            const setLoadingState = () => {
+                resultsSection.classList.remove("hidden");
+                verdictText.textContent = "Analyzing...";
+                verdictText.className = "text-4xl font-bold mb-2 text-gray-900 transition-colors duration-300";
+                gaugeScoreText.textContent = "--%";
+                riskFactorsList.innerHTML = `<span class="inline-block bg-gray-300 text-gray-800 rounded-full px-3 py-1 font-semibold">Processing...</span>`;
+                updateGauge(0);
+            };
+
+            // --- QR Code Scanner Functions ---
+            const onScanSuccess = (decodedText, decodedResult) => {
+                qrReaderResults.textContent = "QR Code Scanned!";
+                qrReaderResults.className = "text-green-400 text-center font-semibold mt-2";
+                urlInput.value = decodedText;
+                stopScanner();
+                analyzeBtn.click();
+            };
+
+            const onScanFailure = (error) => {
+                if (!error.includes("No QR code found")) {
+                    console.warn(`QR Code scan error: ${error}`);
+                    qrReaderResults.textContent = "Scan failed, please try again.";
+                    qrReaderResults.className = "text-red-400 text-center font-semibold mt-2";
+                }
+            };
+
+            const startScanner = () => {
+                if (!html5QrCode) {
+                    html5QrCode = new Html5Qrcode("qr-reader");
+                }
+                qrSection.classList.remove("hidden");
+                qrReaderResults.textContent = "Point camera at a QR code...";
+                qrReaderResults.className = "text-gray-300 text-center font-semibold mt-2";
+
+                html5QrCode.start(
+                    { facingMode: "environment" },
+                    {
+                        fps: 10,
+                        qrbox: { width: 250, height: 250 }
+                    },
+                    onScanSuccess,
+                    onScanFailure
+                ).catch(err => {
+                    console.error("Failed to start QR scanner:", err);
+                    qrReaderResults.textContent = "Could not start camera.";
+                    qrReaderResults.className = "text-red-400 text-center font-semibold mt-2";
+                });
+            };
+
+            const stopScanner = () => {
+                if (html5QrCode && html5QrCode.isScanning) {
+                    try {
+                        html5QrCode.stop().then(() => {
+                            qrSection.classList.add("hidden");
+                        }).catch(err => {
+                            console.warn("Failed to stop scanner gracefully, hiding anyway.", err);
+                            qrSection.classList.add("hidden");
+                        });
+                    } catch (err) {
+                        console.warn("Error stopping QR scanner:", err);
+                        qrSection.classList.add("hidden");
+                    }
+                } else {
+                     qrSection.classList.add("hidden");
+                }
+            };
+
+            // --- Event Listeners ---
+            analyzeBtn.addEventListener("click", async () => {
+                const textToAnalyze = urlInput.value;
+                if (!textToAnalyze.trim()) {
+                    urlInput.focus();
+                    return;
+                }
+
+                setLoadingState();
+                analyzeBtn.disabled = true;
+                analyzeBtn.textContent = "Analyzing...";
+
+                const analysisData = await callGemini(textToAnalyze);
+                updateUI(analysisData);
+
+                analyzeBtn.disabled = false;
+                analyzeBtn.textContent = "Analyze 🔍";
+            });
+
+            scanQrBtn.addEventListener("click", () => {
+                if (qrSection.classList.contains("hidden")) {
+                    startScanner();
+                } else {
+                    stopScanner();
+                }
+            });
+
+            highRecallToggle.addEventListener("change", () => {
+                renderVerdict();
+            });
+
+            // --- Initialization ---
+            initGauge();
+        });
+    </script>
+</body>
 </html>
